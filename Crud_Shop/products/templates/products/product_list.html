@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">School Book Store</h1>
+    {{ message }}
+<div class="row">
+    {% for object in object_list %}
+</div>
+<div class="row" align="center">
+    <div class="col-sm-3" ; style="border: 5px solid">
+        <p>{{ object.name }}</p>
+        <p>Price: ${{ object.price }}</p>
+        {% if object in user.profile.ebooks.all %}
+        This book is already owned by you
+        {% elif object in current_order_products %}
+        <a href="{% url 'shopping_cart:order_summary' %}" class="btn btn-primary">Go to Cart</a>
+        {% else %}
+        <a href="{% url 'shopping_cart:add_to_cart' object.id %}" class="btn-primary">Add to Cart</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
